@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab 标签</title>
+</head>
+<style>
+    body{
+        padding: 0;
+        margin: 0;
+        background-color: #F7F7F7;
+    }
+
+    .tabs{
+        width: 400px;
+        margin: 30px auto;
+        background-color:FFF;
+        border: 1px solid #c0dcc0;
+        /* box-sizing: border-box 表示盒子大小包含边框大小 */
+        box-sizing: border-box; 
+    }
+
+    .tabs nav {
+        height: 40px;
+        text-align: center;
+        line-height: 40px;
+        overflow: hidden;/*裁剪*/
+        background-color: #c0dcc0;
+        display: flex ;/*位置固定*/
+    }
+
+    nav a {
+        display: block;
+        width: 100px;
+        border-right: 1px solid #ffffff;
+        color: #000000;
+        text-decoration: none;
+    }
+
+    nav a:last-child{
+        border-right: 0 none;
+    }
+
+    nav a.active{
+        background-color: #9baf9b;
+    }
+
+    .cont{
+        overflow: hidden;
+        display: none;
+    }
+
+    .cont ol {
+        line-height: 30px;
+    }
+</style>
+<body>
+    <div class="tabs">
+    <nav>
+        <a href="javascript:;" data-cont="china">国内新闻</a>
+        <a href="javascript:;" data-cont="international">国际新闻</a>
+        <a href="javascript:;" data-cont="sports">体育新闻</a>
+        <a href="javascript:;" data-cont="amusement">娱乐新闻</a>
+    </nav>
+    <section class="cont" id="china">
+        <ol>
+            <li>国内新闻1</li>
+            <li>国内新闻2</li>
+            <li>国内新闻3</li>
+            <li>国内新闻4</li>
+            <li>国内新闻5</li>
+            <li>国内新闻6</li>
+            <li>国内新闻7</li>
+        </ol>
+    </section>
+    <section class="cont" id="international">
+        <ol>
+            <li>国际新闻1</li>
+            <li>国际新闻2</li>
+            <li>国际新闻3</li>
+            <li>国际新闻4</li>
+            <li>国际新闻5</li>
+            <li>国际新闻6</li>
+        </ol>
+    </section>
+    <section class="cont" id="sports">
+        <ol>
+            <li>体育新闻2</li>
+            <li>体育新闻1</li>
+            <li>体育新闻3</li>
+            <li>体育新闻4</li>
+            <li>体育新闻5</li>
+            <li>体育新闻6</li>
+            <li>体育新闻7</li>
+        </ol>
+    </section>
+    <section class="cont" id="amusement">
+        <ol>
+            <li>娱乐新闻1</li>
+            <li>娱乐新闻2</li>
+            <li>娱乐新闻3</li>
+            <li>娱乐新闻4</li>
+            <li>娱乐新闻5</li>
+            <li>娱乐新闻6</li>
+            <li>娱乐新闻7</li>
+        </ol>
+    </section>
+    </div>
+    <script>
+        // key 表示当前显示第几个
+       ( function (key) {
+            // 获取所有的 nav
+            var navs = document.querySelectorAll('nav a');
+            //  遍历    给导航  绑定事件    并添加当前样式
+            for(var i = 0; i < navs.length; i ++)   {
+                //  如果是用户指定的当前样式
+                if (key == i) {
+                    navs[i].classList.add('active');
+                    //获取显示section标签
+                    var secId = navs[i].dataset['cont'];
+                    //  显示section样式
+                    document.querySelector('#' + secId).style.display = 'block';
+                }
+                
+                //  绑定点击事件
+                navs[i].onclick = function(){
+                    //  清除之前存在的样式  并隐藏之前的section
+                    //  获取对应样式
+                    var currentNav = document.querySelector('.active');
+                    //  获取对应section
+                    var currentId = currentNav.dataset['cont'];
+                    //  去掉active样式
+                    currentNav.classList.remove('active');
+                    //  隐藏当前section
+                    document.querySelector('#' + currentId).style.display = 'none';
+
+                    //  显示用户选中样式
+                    this.classList.add('active');
+                    var myId = this.dataset['cont'];
+                    document.querySelector('#' + myId).style.display = 'block';
+                }
+            }
+            //  遍历    给导航绑定事件， 并且添加当前样式。            
+        })(0);
+    </script>
+</body>
+</html>
